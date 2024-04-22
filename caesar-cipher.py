@@ -8,7 +8,11 @@ shift = int(input("Type the shift number:\n"))
 def encrypt(text, shift):
     cipher = []
     for index,letter in enumerate(text):
-        cipher += alphabet[alphabet.index(letter) + shift]
+        netshift = alphabet.index(letter) + shift
+        if netshift > 25:
+            cipher += alphabet[netshift-26]
+        else:
+            cipher += alphabet[netshift]
     cipher = "".join(str(element) for element in cipher)
     print(f"plan_text = \"{text}\"")
     print(f"shift = {shift}")
