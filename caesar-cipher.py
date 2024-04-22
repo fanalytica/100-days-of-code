@@ -8,8 +8,9 @@ def encrypt(text, shift):
     cipher = []
     for index,letter in enumerate(text):
         netshift = alphabet.index(letter) + shift
-        if netshift > 25:
-            cipher += alphabet[netshift-26]
+        if netshift > 25 or netshift < 0:
+            newshift = abs(abs(netshift)-26)
+            cipher += alphabet[newshift]
         else:
             cipher += alphabet[netshift]
     cipher = "".join(str(element) for element in cipher)
@@ -17,7 +18,9 @@ def encrypt(text, shift):
     print(f"shift = {shift}")
     print(f"cipher_text = \"{cipher}\"")
 #TODO-1: Create a different function called 'decrypt' that takes the 'text' and 'shift' as inputs.
-
+def decrypt(text,shift):
+    decode = []
+    encrypt(text=text, shift=-shift)
   #TODO-2: Inside the 'decrypt' function, shift each letter of the 'text' *backwards* in the alphabet by the shift amount and print the decrypted text.  
   #e.g. 
   #cipher_text = "mjqqt"
@@ -27,4 +30,9 @@ def encrypt(text, shift):
 
 
 #TODO-3: Check if the user wanted to encrypt or decrypt the message by checking the 'direction' variable. Then call the correct function based on that 'drection' variable. You should be able to test the code to encrypt *AND* decrypt a message.
-encrypt(text=text, shift=shift)
+if direction == "encode":
+    encrypt(text=text, shift=shift)
+elif direction == "decode":
+    decrypt(text=text, shift=shift)
+else:
+    print("Error.")
