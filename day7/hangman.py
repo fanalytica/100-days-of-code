@@ -1,16 +1,22 @@
 #Step 5
 
 import random
+import hangman_words
+import hangman_art
 
 #TODO-1: - Update the word list to use the 'word_list' from hangman_words.py
 #Delete this line: word_list = ["ardvark", "baboon", "camel"]
+word_list = hangman_words.word_list
 chosen_word = random.choice(word_list)
 word_length = len(chosen_word)
+prev_guess =[]
 
 end_of_game = False
 lives = 6
+stages = hangman_art.stages
 
 #TODO-3: - Import the logo from hangman_art.py and print it at the start of the game.
+print(hangman_art.logo)
 
 #Testing code
 print(f'Pssst, the solution is {chosen_word}.')
@@ -24,6 +30,11 @@ while not end_of_game:
     guess = input("Guess a letter: ").lower()
 
     #TODO-4: - If the user has entered a letter they've already guessed, print the letter and let them know.
+
+
+    while guess in prev_guess:
+        guess = input("Guess a letter you haven't guessed before: ").lower()
+    prev_guess += guess
 
     #Check guessed letter
     for position in range(word_length):
