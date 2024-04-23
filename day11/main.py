@@ -27,7 +27,9 @@ import random
 def deal_card(player):
     #Pick a random card from the pool of available cards
     rand_card = random.randint(0,len(cards)-1)
+    #should have used random.choice()
     player.append(cards[rand_card])
+    #could have pulled this out of the function so the function is only performing the action of dealing a card.
     return player
 
 def calc_score(player):
@@ -35,6 +37,8 @@ def calc_score(player):
     global player_continue
     global game_state
     #recalculate ace (11) to 1 if score > 21
+    #didn't check for blackjack
+    #while loop probably unnecessary
     while score > 21:
         if 11 in player:
             player[player.index(11)]=1
@@ -65,6 +69,7 @@ if __name__ == '__main__':
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
     player_hand = []
+    #could have just used my defined function for calculating the score
     player_score = sum(player_hand)
 
     computer_hand = []
@@ -111,6 +116,7 @@ if __name__ == '__main__':
         game_state = False
         
     
+#could have put this in a function
 if player_score > 21:
     print("Dealer won!")
 elif computer_score > 21:
@@ -121,6 +127,10 @@ elif computer_score > player_score:
     print("Computer won!")
 else:
     print("Draw.")
+
+#Didn't add option to restart the game
+#Would need to do new while loop and put all the code with the actual game steps in to the while loop for as long as the player keeps choosing to play again
+
 ##################### Hints #####################
 
 #Hint 1: Go to this website and try out the Blackjack game: 
