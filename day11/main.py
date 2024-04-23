@@ -17,6 +17,110 @@
 ## Cards are not removed from the deck as they are drawn.
 ## The computer is the dealer.
 
+from art import logo
+import random
+
+#draw player cards until the pass or bust
+
+#draw dealer cards until they reach 17 or bust
+
+def deal_card(player):
+    #Pick a random card from the pool of available cards
+    rand_card = random.randint(0,len(cards)-1)
+    player.append(cards[rand_card])
+    return player
+
+def calc_score(player):
+    score = sum(player)
+    global player_continue
+    global game_state
+    #recalculate ace (11) to 1 if score > 21
+    while score > 21:
+        if 11 in player:
+            player[player.index(11)]=1
+            score = sum(player)
+        else:
+            player_continue = False
+            game_state = False
+            print("Hand went over 21!")
+            break
+    return score
+
+def print_game_state(player,computer):
+        # player_score = calc_score(player)
+        # computer_score = calc_score(computer)
+        print(f"Your cards: {player}, current score: {player_score}")
+        if len(computer) == 1:
+            print(f"Computer's first card: {computer}")
+        else:
+            print(f"Computer's cards: {computer}, current score: {computer_score}")
+
+
+if __name__ == '__main__':
+
+    game_state = True
+
+    print(logo)
+
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+    player_hand = []
+    player_score = sum(player_hand)
+
+    computer_hand = []
+    computer_score = sum(computer_hand)
+    
+    #deal the first cards
+    player_hand = deal_card(player_hand)
+    player_hand = deal_card(player_hand)
+    computer_hand = deal_card(computer_hand)
+    player_continue = True
+    computer_continue = True
+
+    while game_state:
+        player_score = calc_score(player_hand)
+        computer_score = calc_score(computer_hand)
+
+        # print(f"Your cards: {player_hand}, current score: {player_score}")
+        # if len(computer_hand) == 1:
+        #     print(f"Computer's first card: {computer_hand}")
+        # else:
+        #     print(f"Computer's cards: {computer_hand}, current score: {computer_score}")
+        print_game_state(player_hand,computer_hand)
+        
+        #Deal for player
+        while player_continue:
+            player_continue = input("Type 'y' to get another card, type 'n' to pass: ")
+            if player_continue == 'n':
+                player_continue = False
+            # elif player_continue == 'bust':
+            #     print("You lose.")
+            #     player_continue = False
+            #     game_state = False
+            else:
+                player_hand = deal_card(player_hand)
+                player_score = calc_score(player_hand)
+                print_game_state(player_hand,computer_hand)
+        #Deal for computer
+        while computer_score < 17 and game_state:
+            computer_hand = deal_card(computer_hand)
+            computer_score = calc_score(computer_hand)
+            print_game_state(player_hand,computer_hand)
+        
+        print("Game over.")
+        game_state = False
+        
+    
+if player_score > 21:
+    print("Dealer won!")
+elif computer_score > 21:
+    print("Player won!")
+elif player_score > computer_score:
+    print("Player won!")
+elif computer_score > player_score:
+    print("Computer won!")
+else:
+    print("Draw.")
 ##################### Hints #####################
 
 #Hint 1: Go to this website and try out the Blackjack game: 
