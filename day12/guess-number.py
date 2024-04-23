@@ -39,7 +39,7 @@ def set_difficulty():
 
 # TODO-3
 # Prompt user for guess and loop untill out of attempts or a correct guess
-def user_guess():
+def user_guess(attempts):
     print(f"You have {attempts} attempts remaining to guess the number.")
     guess = input("Make a guess: ")
     return guess
@@ -50,17 +50,22 @@ def check_guess(guess,answer):
     elif guess < answer:
         print("Too low.\nGuess again.")
 
-guess = -1
-attempts = set_difficulty()
 
-while guess != answer and attempts >0:
-    guess = int(user_guess())
-    attempts -=1
-# TODO-4
-# Tell the user whether they are high or low
-    check_guess(guess,answer)
 
-if guess == answer:
-    print("You won!")
-else:
-    print(f"You lost!\nThe answer was {answer}!")
+def game():
+    guess = -1
+    attempts = set_difficulty()
+    
+    while guess != answer and attempts >0:
+        guess = int(user_guess(attempts))
+        attempts -=1
+    # TODO-4
+    # Tell the user whether they are high or low
+        check_guess(guess,answer)
+
+    if guess == answer:
+        print("You won!")
+    else:
+        print(f"You lost!\nThe answer was {answer}!")
+
+game()
