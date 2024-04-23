@@ -26,14 +26,15 @@ game_modes = {
 
 # TODO-1
 # Ask user for easy or hard version
-
-while True:
-    difficulty = input("Choose a difficulty. Type 'easy' or 'hard': ")
-    if difficulty in game_modes:
-        attempts = game_modes[difficulty]
-        break
-    else:
-        print("Chosen difficulty unavailable. ")
+def set_difficulty():
+    while True:
+        difficulty = input("Choose a difficulty. Type 'easy' or 'hard': ")
+        if difficulty in game_modes:
+            attempts = game_modes[difficulty]
+            break
+        else:
+            print("Chosen difficulty unavailable. ")
+    return attempts
 
 
 # TODO-3
@@ -43,19 +44,23 @@ def user_guess():
     guess = input("Make a guess: ")
     return guess
 
+def check_guess(guess,answer):
+    if guess > answer:
+        print("Too high.\nGuess again.")
+    elif guess < answer:
+        print("Too low.\nGuess again.")
+
 guess = -1
+attempts = set_difficulty()
 
 while guess != answer and attempts >0:
     guess = int(user_guess())
     attempts -=1
 # TODO-4
 # Tell the user whether they are high or low
-    if guess > answer:
-        print("Too high.\nGuess again.")
-    elif guess < answer:
-        print("Too low.\nGuess again.")
+    check_guess(guess,answer)
 
 if guess == answer:
     print("You won!")
 else:
-    print("You lost!")
+    print(f"You lost!\nThe answer was {answer}!")
