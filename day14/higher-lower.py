@@ -9,16 +9,25 @@ import random
 
 # TODO-1
 # Introduce game
-def start_game(data):
+# TODO-5 
+# Make sure we don't use the same choices
+def start_game(fdata, a=False, b=False,winner=False):
     print(logo)
-
-    rand_a = random.randint(0,len(data)-1)
-    rand_b = random.randint(0,len(data)-1)
-
-    choice_a = data[rand_a]
-    choice_b = data[rand_b]
-
-    score = 0
+    newdata = fdata.copy()
+    if winner:
+        newdata.pop(newdata.index(a))
+        choice_a = a
+        a=True
+    while not a:
+        rand_a = random.randint(0,len(newdata)-1)
+        choice_a = newdata[rand_a]
+        newdata.pop(rand_a)
+        a=True
+    while not b:
+        rand_b = random.randint(0,len(newdata)-1)
+        choice_b = newdata[rand_b]
+        newdata.pop(rand_b)
+        b=True
     return choice_a,choice_b
 
 # TODO-2 
@@ -60,13 +69,23 @@ def compare_guess(winner,guess,score):
 
 def main():
     score = 0
-    choice_a,choice_b = start_game(data)
-    choice_list = [choice_a,choice_b]
-    print_vs(choice_a,choice_b)
-    guess_index = user_guess()
-    guess = choice_list[guess_index]
-    winner = max(choice_list, key= lambda x:x['follower_count'])
-    compare_guess(winner,guess,score)
+    game_state = True
+    while game_state:
+        if score == 0:
+            choice_a,choice_b = start_game(data)
+        else:
+            choice_a, choice_b = start_game(data,a=winner, winner=True)
+        choice_list = [choice_a,choice_b]
+        print_vs(choice_a,choice_b)
+        guess_index = user_guess()
+        guess = choice_list[guess_index]
+        winner = max(choice_list, key= lambda x:x['follower_count'])
+        if winner['name'] == guess['name']:
+            score += 1
+            print(f"You're right! Current score: {score}.")
+        else:
+            print(f"Game over. Final score was {score}.")
+            game_state = False
 
 if __name__ == "__main__":
     main()
