@@ -12,6 +12,7 @@ import random
 # TODO-5 
 # Make sure we don't use the same choices
 def start_game(fdata, a=False, b=False,winner=False):
+    #Could have broken out another function just for making the random choice
     print(logo)
     newdata = fdata.copy()
     if winner:
