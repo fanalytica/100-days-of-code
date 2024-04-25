@@ -21,7 +21,7 @@ MENU = {
             "coffee": 24,
         },
         "cost": 3.0,
-    }
+    },
 }
 
 resources = {
@@ -30,28 +30,28 @@ resources = {
     "coffee": 100,
 }
 
-#TODO prompt user input
+# TODO prompt user input
 # Ask for type of coffee
 # Dispense if enough money
 # repeat
 
-#TODO Function to turn off coffee machine
+# TODO Function to turn off coffee machine
 
-#TODO Report function to show current available resources
+# TODO Report function to show current available resources
 # Water, milk, coffee, money
 
-#TODO Verify sufficient resources for requested drink
+# TODO Verify sufficient resources for requested drink
 
-#TODO Request payment
+# TODO Request payment
 # Prompt user for payment in quarters, dimes, nickles, pennies
 
-#TODO Process payment
+# TODO Process payment
 # Verify sufficent funds provided by user for cost of drink
 # If sufficient add cost to machine profits
 # If not sufficient refund money
 # If too much money return change
 
-#TODO Make coffee
+# TODO Make coffee
 # If payment is successfully processed and sufficient resources available  make drink
 # Deduct used resources from available resources
 # Tell the user “Here is your latte. Enjoy!”. If latte was their choice of drink
