@@ -24,3 +24,4 @@ total_split_rd = round(total_split,2)
 final_total = total_split_rd * splitnum
 
 print(f"Each must pay {total_split_rd} for a total bill of {final_total} and tip of {tiprate_rd}")
+
