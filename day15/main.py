@@ -39,8 +39,17 @@ RESOURCES = {
 # Dispense if enough money
 # repeat
 
-def order_coffee():
-    order = input("​What would you like? (espresso/latte/cappuccino):​")
+def order_coffee(resources):
+    # recvd_input = False
+    # while not recvd_input:
+    #     order = input("​What would you like? (espresso/latte/cappuccino):​")
+    #     if order == 'report':
+    #         report_avail_resources(resources)
+    #     else: 
+    #         recvd_input = True
+    #         return order
+    order = "​What would you like? (espresso/latte/cappuccino):​"
+    order = req_user_input(order,resources)
     return order
 
 # TODO Function to turn off coffee machine
@@ -49,8 +58,16 @@ def turn_off():
 
 # TODO Report function to show current available resources
 # Water, milk, coffee, money
-def report_avail_resources(resources):
-    print(f"Available resources:\n{resources}")
+def req_user_input(user_prompt,resources):
+    recvd_input = False
+    while not recvd_input:
+        user_input = input(user_prompt)
+        if user_input == 'report':
+            print(f"Available resources:\n{resources}")
+        else: 
+            recvd_input = True
+            return user_input
+   
 
 
 
@@ -90,13 +107,13 @@ def verify_sufficient_resources(valid_item,resources):
 
 # TODO Request payment
 # Prompt user for payment in quarters, dimes, nickles, pennies
-def request_payment(user_order,ordered_item):
+def request_payment(user_order,ordered_item,resources):
     print(f"{ordered_item} costs ${user_order['cost']}")
     print("Please insert coins.")
-    quarters = int(input("How many quarters?: "))
-    dimes = int(input("How many dimes?: "))
-    nickles = int(input("How many nickles?: "))
-    pennies = int(input("How many pennies?: "))
+    quarters = int(req_user_input("How many quarters?: ",resources))
+    dimes = int(req_user_input("How many dimes?: ",resources))
+    nickles = int(req_user_input("How many nickles?: ",resources))
+    pennies = int(req_user_input("How many pennies?: ",resources))
     total_payment = quarters*.25 + dimes*.1 + nickles*.05 + pennies*.01
     return total_payment
 
@@ -135,7 +152,8 @@ def main():
     machine_power = True
     resources = RESOURCES
     while machine_power:
-        user_order = order_coffee().lower()
+        #
+        user_order = order_coffee(resources).lower()
         print(user_order)
         #I should have maintained the structure of the nested dictionary instead of doing this to save the name of the order.
         ordered_item = user_order
@@ -144,7 +162,7 @@ def main():
         remaining_resources = verify_sufficient_resources(user_order,resources)
         # print(remaining_resources)
         if remaining_resources:
-            payment = request_payment(user_order,ordered_item)
+            payment = request_payment(user_order,ordered_item,resources)
             change = process_payment(payment,user_order,resources)
             if change is not False:
                 resources = make_drink(resources,remaining_resources,user_order,ordered_item)
