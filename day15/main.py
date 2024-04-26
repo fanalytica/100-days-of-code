@@ -64,6 +64,8 @@ def req_user_input(user_prompt,resources):
         user_input = input(user_prompt)
         if user_input == 'report':
             print(f"Available resources:\n{resources}")
+        elif user_input == 'off':
+            turn_off()
         else: 
             recvd_input = True
             return user_input
