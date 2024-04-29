@@ -4,11 +4,11 @@ drawing = turtle.Turtle()
 drawing.shape("arrow")
 drawing.color("blue")
 
-for _ in range(20):
-    drawing.forward(10)
-    drawing.up()
-    drawing.forward(10)
-    drawing.down()
+for sides in range(3,20):
+    angle = 360/sides
+    for side in range(sides):
+        drawing.right(angle)
+        drawing.forward(100)
 
 
 
